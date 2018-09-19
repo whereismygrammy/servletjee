@@ -6,17 +6,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Random;
 
-@WebServlet(name = "Get61", urlPatterns = "/Get61")
-public class Get61 extends HttpServlet {
-
+@WebServlet(name = "Get63", urlPatterns = "/Get63")
+public class Get63 extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        for (int year = 1980; year < 2011; year++) {
-            response.getWriter().println("<a href=\"/Get62?year=" + year + "\">Link do roku " + year + "</a></br>");
-        }
-
+        int year = Integer.parseInt(request.getParameter("year"));
+        int mix = Integer.parseInt(request.getParameter("mix"));
+        response.getWriter().println("Rok to: " + (year + mix));
 
     }
 }
