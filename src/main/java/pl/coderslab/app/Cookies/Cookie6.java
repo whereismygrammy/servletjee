@@ -14,6 +14,9 @@ public class Cookie6 extends HttpServlet {
         String textColor = request.getParameter("textColor");
         String backgroundColor = request.getParameter("backgroundColor");
 
+        System.out.println(textColor);
+        System.out.println(backgroundColor);
+
         Cookie textColorCookie = new Cookie("textColor", textColor);
         textColorCookie.setMaxAge(3600);
         textColorCookie.setPath("/");
@@ -24,58 +27,71 @@ public class Cookie6 extends HttpServlet {
         backgroundColorCookie.setPath("/");
         response.addCookie(backgroundColorCookie);
 
-        response.getWriter().println("" +
-                "<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<body style=\"background-color:" + backgroundColor + ";\">\n" +
-                "<h1 style=\"color:" + textColor + ";\">" +
-                "Wybrany kolor tekstu" + textColor + " wybrany kolor tla " + backgroundColor +
-                "</h1>\n" +
-                "</body>\n" +
-                "</html>\n");
+        if (textColor.equals("") || backgroundColor.equals("")) {
+            response.getWriter().println("" +
+                    "<!DOCTYPE html>\n" +
+                    "<html><body>" +
+                    "<h1>Wybiersz sobie oba kolory! <a href=\"/indexCookie6.html\">tutaj</a></h>" +
+                    "</body></html>");
 
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String textColor = "black";
-        String backgroundColor = "white";
-        boolean cookieText = false;
-        boolean cookieBack = false;
-
-        Cookie[] cookies = request.getCookies();
-
-        for (Cookie c : cookies) {
-            if (c.getName().equals("textColor")) {
-                textColor = c.getValue();
-                cookieText = true;
-            }
-            if (c.getName().equals("backgroundColor")) {
-                backgroundColor = c.getValue();
-                cookieBack = true;
-            }
-        }
-
-        if (cookieBack || cookieBack){
+        } else {
             response.getWriter().println("" +
                     "<!DOCTYPE html>\n" +
                     "<html>\n" +
                     "<body style=\"background-color:" + backgroundColor + ";\">\n" +
-                    "<h1>" +
-                    "Wybierz sobie kolor <a href=\"/indexCookie6.html\">tutaj</a>" +
+                    "<h1 style=\"color:" + textColor + ";\">" +
+                    "Wybrany kolor tekstu" + textColor + " wybrany kolor tla " + backgroundColor +
                     "</h1>\n" +
                     "</body>\n" +
                     "</html>\n");
         }
 
-        response.getWriter().println("" +
-                "<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<body style=\"background-color:" + backgroundColor + ";\">\n" +
-                "<h1 style=\"color:" + textColor + ";\">" +
-                "Zapamietany kolor tekstu" + textColor + " zapamietany kolor tla " + backgroundColor +
-                "</h1>\n" +
-                "</body>\n" +
-                "</html>\n");
 
     }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String textColor = "";
+        String backgroundColor = "";
+
+
+        Cookie[] cookies = request.getCookies();
+
+        System.out.println(cookies);
+
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("textColor")) {
+                    textColor = c.getValue();
+                }
+                if (c.getName().equals("backgroundColor")) {
+                    backgroundColor = c.getValue();
+                }
+            }
+        }
+
+
+        if (textColor.equals("") || backgroundColor.equals("")) {
+            response.getWriter().println("" +
+                    "<!DOCTYPE html>\n" +
+                    "<html><body>" +
+                    "<h1>Wybiersz sobie oba kolory! <a href=\"/indexCookie6.html\">tutaj</a></h>" +
+                    "</body></html>");
+
+        } else {
+            response.getWriter().println("" +
+                    "<!DOCTYPE html>\n" +
+                    "<html>\n" +
+                    "<body style=\"background-color:" + backgroundColor + ";\">\n" +
+                    "<h1 style=\"color:" + textColor + ";\">" +
+                    "Zapamietany kolor tekstu" + textColor + " zapamietany kolor tla " + backgroundColor +
+                    "</h1>\n" +
+                    "</body>\n" +
+                    "</html>\n");
+        }
+
+
+    }
+
+
 }
+

@@ -14,7 +14,6 @@ import java.util.List;
 public class Sess02 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
         HttpSession session = request.getSession();
         List<Integer> grades = (List<Integer>) session.getAttribute("grades");
         if (grades == null) {

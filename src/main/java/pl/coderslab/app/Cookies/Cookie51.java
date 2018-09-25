@@ -12,12 +12,11 @@ import java.io.IOException;
 public class Cookie51 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         Cookie cookie = new Cookie("visit51", "true");
-
         response.addCookie(cookie);
         response.getWriter().println("<a href=\"/Cookie52\">Now you can go</a>");
 

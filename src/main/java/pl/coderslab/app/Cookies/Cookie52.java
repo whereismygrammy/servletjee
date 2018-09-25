@@ -14,14 +14,20 @@ public class Cookie52 extends HttpServlet {
 
         String welcome = "<a href =\"/Cookie51\">Nie odwiedziles jeszcze 51</a>";
 
-        for (Cookie c : request.getCookies()) {
-            if (c.getName().equals("visit51") && c.getValue().equals("true")) {
-                welcome = "Witamy na stronie Cookie52";
-                c.setMaxAge(0);
-                response.addCookie(c);
-                break;
+        try {
+            Cookie[] requestCookies = request.getCookies();
+            for (Cookie c : requestCookies) {
+                if (c.getName().equals("visit51") && c.getValue().equals("true")) {
+                    welcome = "Witamy na stronie Cookie52";
+                    c.setMaxAge(0);
+                    response.addCookie(c);
+                    break;
+                }
             }
+        } catch (NullPointerException e){
+            e.printStackTrace();
         }
+
         response.getWriter().println(welcome);
 
     }
